@@ -1,43 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
-<b-container fluid>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+<b-container>
+    <b-row class="justify-content-center">
+        <b-col cols="8">
+            <b-card title="{{ __('Login') }}">
+                <p class="card-text">
+                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                        <b-form-group
+                            label="Correo electrónico"
+                            label-for="email"
+                            description="ingresa tu correo"
+                        >
+                            <b-form-input 
+                            id="email" 
+                            name="email"
+                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                            value="{{ old('email') }}" required autofocus
+                            ></b-form-input>
+                        </b-form-group>
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                        <b-form-group
+                            label="{{ __('Contraseña') }}"
+                            label-for="password"
+                            description="Msinimo 6 caracteres"
+                        >
+                            <b-form-input 
+                            id="password" 
+                            type="password"
+                            name="password"
+                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                            value="{{ old('password') }}" required
+                            ></b-form-input>
+                        </b-form-group>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                        <b-form-checkbox
+                        name="remember"
+                        {{ old('remember') ? 'checked="true"' : '' }}>
+                            {{ __('Recordarme') }}
+                        </b-form-checkbox>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
@@ -65,9 +71,9 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                </p>
+            </b-card>
+        </b-col>
+    </b-row>
 </b-container>
 @endsection

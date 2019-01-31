@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+    <b-container>
+        <b-row class="row justify-content-center">
+            <b-col cols="12">
                 <div class="card card-default">
                     <div class="card-header">Example Component</div>
 
@@ -9,9 +9,9 @@
                         I'm an example component.
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
