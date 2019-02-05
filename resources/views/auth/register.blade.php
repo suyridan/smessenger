@@ -8,6 +8,15 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
+
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <b-alert show variant="danger">
+                                {{ $error }}
+                            </b-alert>                            
+                        @endforeach
+                    @endif
+
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 

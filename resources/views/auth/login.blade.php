@@ -6,14 +6,33 @@
         <b-col cols="8">
             <b-card title="{{ __('Login') }}">
                 <p class="card-text">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <b-alert show variant="danger">
+                                {{ $error }}
+                            </b-alert>                            
+                        @endforeach
+                    @endif
+
+                    <b-alert show variant="success">
+                        <h4 class="alert-heading">Well done!</h4>
+                        <p>
+                            Aww yeah, you successfully read this important alert message.
+                            This example text is going to run a bit longer so that you can see
+                            how spacing within an alert works with this kind of content.
+                        </p>
+                        <hr>
+                        <p class="mb-0">
+                            Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
+                        </p>
+                    </b-alert>
+
+                    <b-form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         @csrf
-
-
                         <b-form-group
                             label="Correo electrónico"
                             label-for="email"
-                            description="ingresa tu correo"
                         >
                             <b-form-input 
                             id="email" 
@@ -26,7 +45,6 @@
                         <b-form-group
                             label="{{ __('Contraseña') }}"
                             label-for="password"
-                            description="Msinimo 6 caracteres"
                         >
                             <b-form-input 
                             id="password" 
@@ -37,40 +55,28 @@
                             ></b-form-input>
                         </b-form-group>
 
-                        <b-form-checkbox
-                        name="remember"
-                        {{ old('remember') ? 'checked="true"' : '' }}>
-                            {{ __('Recordarme') }}
-                        </b-form-checkbox>
+                        <b-form-group>
+                            <b-form-checkbox
+                            id="remember"
+                            name="remember"
+                            {{ old('remember') ? 'checked="true"' : '' }}>
+                                {{ __('Recordarme') }}
+                            </b-form-checkbox>
+                        </b-form-group>
 
-
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                        <b-button
+                        type="submit"
+                        variant="primary">
+                            Ingresar
+                        </b-button>
+                        @if (Route::has('password.request'))
+                            <b-button
+                            variant="link" 
+                            href="{{ route('password.request') }}">
+                                ¿Olvidaste tu contraseña?
+                            </b-button>
+                        @endif
+                    </b-form>
                 </p>
             </b-card>
         </b-col>
