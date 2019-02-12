@@ -26,7 +26,7 @@ Vue.use(BootstrapVue);
 Vue.component('contact-comp', require('./components/ContactComp.vue').default);
 Vue.component('contact-list-comp', require('./components/ContactListComp.vue').default);
 Vue.component('active-conversation-comp', require('./components/ActiveConversationComp.vue').default);
-
+Vue.component('message-conversation-comp', require('./components/MessageConversationComp.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -9,25 +9,13 @@
             footer-border-variant="dark"
             title="Title"
             > 
-                <b-media left-align vertical-align="center" class="mb-2">
-                    <b-img rounded="circle" slot="aside" blank blank-color="#ccc" width="50" alt="placeholder" />
-                    <b-card>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                        sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra
-                        turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                        congue felis in faucibus.
-                    </b-card>
-                </b-media>
+                <message-conversation-comp>
+                    awdadawdadawdaddmm m mm  mm m m 
+                </message-conversation-comp>
 
-                <b-media right-align vertical-align="center" class="mb-2">
-                    <b-img rounded="circle" slot="aside" blank blank-color="#ccc" width="50" alt="placeholder" />
-                    <b-card>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                        sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra
-                        turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                        congue felis in faucibus.
-                    </b-card>
-                </b-media>
+                <message-conversation-comp written-by-me>
+                    Lorem ipsum dolor sit, amet consec 
+                </message-conversation-comp>
 
                 <div slot="footer">
                     <b-form class="mb-0">
@@ -62,7 +50,7 @@
 <script>
     export default {
         mounted() {
-            console.log('Component mounted.')
+            axios.get('api/index').then(() => console.log(response));
         }
     }
 </script>
