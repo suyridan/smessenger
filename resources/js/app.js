@@ -8,8 +8,10 @@
 window.Vue = require('vue');
 
 import BootstrapVue from 'bootstrap-vue'
-
 Vue.use(BootstrapVue);
+
+window.axios = require('axios');
+Vue.prototype.$http = window.axios
 
 /**
  * The following block of code may be used to automatically register your

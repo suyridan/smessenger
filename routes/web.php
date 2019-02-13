@@ -11,13 +11,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('api')->group(function () {
 
-    Route::resource('conversations', 'ConversationC', [
-        'only' => ['index']
-    ]);
+    Route::get('conversations', 'ConversationC@index');
 
-    Route::resource('messages', 'MessageC', [
-        'only' => ['index']
-    ]);
+    Route::get('messages', 'MessageC@index');
+    Route::post('messages/store','MessageC@store');
     
 });
 

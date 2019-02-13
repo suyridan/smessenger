@@ -23,5 +23,17 @@ class MessageTableSeeder extends Seeder
             'to_id' => 1,
             'content' => 'Bien gracias, y tu?'
         ]);
+
+
+        Message::create([
+            'from_id' => 1,
+            'to_id' => 3,
+            'content' => 'Hola, quien eres?'
+        ]);
+        Message::create([
+            'from_id' => 3,
+            'to_id' => 1,
+            'content' => 'no lo sé'
+        ]);
     }
 }

@@ -9,25 +9,28 @@
             footer-border-variant="dark"
             title="Title"
             > 
-                <message-conversation-comp>
-                    awdadawdadawdaddmm m mm  mm m m 
+                <message-conversation-comp 
+                    v-for="message in messages" 
+                    :key="message.id"
+                    :written-by-me="message.written_by_me">
+                    {{ message.content }}
                 </message-conversation-comp>
-
-                <message-conversation-comp written-by-me>
-                    Lorem ipsum dolor sit, amet consec 
-                </message-conversation-comp>
-
+                
                 <div slot="footer">
-                    <b-form class="mb-0">
+                    <b-form class="mb-0" @submit.prevent="postMessage">
                         
                         <b-input-group>
                             <b-form-input class="text-center"
                                 type="text"
-                                placeholder="Escribe un mensaje...">
+                                autocomplete="off"
+                                placeholder="Escribe un mensaje..."
+                                v-model="newMessage">
                             </b-form-input>
 
                             <b-input-group-append>
-                                <b-button variant="primary">Enviar</b-button>
+                                <b-button type="submit" variant="primary">
+                                    Enviar
+                                </b-button>
                             </b-input-group-append>
                         
                         </b-input-group>
@@ -49,8 +52,36 @@
 
 <script>
     export default {
+        data(){
+            return {
+                messages: [],
+                newMessage: '',
+                contact_id: 2
+            };
+        },
         mounted() {
-            axios.get('api/index').then(() => console.log(response));
+            this.getMessages();
+        },
+        methods: {
+            getMessages(){
+                axios.get(`/api/messages?contact_id=${this.contact_id}`)
+                .then((response) => {
+                        this.messages = response.data;
+                    });
+            },
+            postMessage(){
+                const param = {
+                    to_id: 2,
+                    content: this.newMessage
+                };
+                axios.post('api/messages/store')
+                    .then((response) => {
+                        if(response.data.success){
+                            this.newMessage = '';
+                            this.getMessages();
+                        }
+                    });
+            }    
         }
     }
 </script>
