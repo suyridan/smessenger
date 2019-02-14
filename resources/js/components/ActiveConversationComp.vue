@@ -74,7 +74,7 @@
                     to_id: 2,
                     content: this.newMessage
                 };
-                axios.post('api/messages/store')
+                axios.post('api/messages/store',param)
                     .then((response) => {
                         if(response.data.success){
                             this.newMessage = '';

@@ -19,7 +19,6 @@ class MessageC extends Controller
         $contact_id = $request->contact_id;
         $messages = Message::select(
             'id',
-            //DB::raw("IF('FROM_ID' = ".$user_id.", 1 , 0) as written_by_me"),
             'from_id',
             'content',
             'created_at')
@@ -38,16 +37,6 @@ class MessageC extends Controller
             }
         }
         return $messages;              
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
