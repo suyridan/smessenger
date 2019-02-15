@@ -7,7 +7,7 @@
             footer-tag="footer"
             footer-bg-variant="light"
             footer-border-variant="dark"
-            title="Title"
+            title="Conversación"
             > 
                 <message-conversation-comp 
                     v-for="message in messages" 
@@ -41,7 +41,8 @@
         </b-col>
         <b-col cols="4">
             <b-img rounded="circle" blank width="60" blank-color="#777" alt="img" class="m-1"></b-img>
-            <p>Usuario seleccionado</p>
+            <p>{{ contactName }}
+            </p>
             <hr>
             <b-form-checkbox>
                 Desactivar notificaciones
@@ -52,11 +53,14 @@
 
 <script>
     export default {
+        props:{
+            contactId: Number,
+            contactName: String
+        },
         data(){
             return {
                 messages: [],
                 newMessage: '',
-                contact_id: 2
             };
         },
         mounted() {
@@ -64,7 +68,7 @@
         },
         methods: {
             getMessages(){
-                axios.get(`/api/messages?contact_id=${this.contact_id}`)
+                axios.get(`/api/messages?contact_id=${this.contactId}`)
                 .then((response) => {
                         this.messages = response.data;
                     });
@@ -82,6 +86,11 @@
                         }
                     });
             }    
+        },
+        watch: {
+            contactId(value){
+                this.getMessages();
+            }
         }
     }
 </script>

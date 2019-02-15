@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<b-container>
+<b-container class="py-4">
     <b-row class="justify-content-center">
         <b-col cols="8">
             <b-card title="{{ __('Login') }}">

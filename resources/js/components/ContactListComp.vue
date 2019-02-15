@@ -8,19 +8,12 @@
         </b-form>
 
         <b-list-group>
-            <!-- <contact-comp variant="dark">
-            </contact-comp>            
-
-            <contact-comp variant="">
-            </contact-comp>
-
-            <contact-comp variant="secondary">
-            </contact-comp> -->
 
             <contact-comp 
                 v-for="conversation in conversations"
                 :key="conversation.id"
                 :conversation="conversation"
+                @click.native="selectConversation(conversation)"
             >
             </contact-comp>
 
@@ -44,6 +37,9 @@
                     .then((response) => {
                         this.conversations = response.data;
                     });
+            },
+            selectConversation(conversation){
+                this.$emit('conversationSelected', conversation);
             }
         }
     }
