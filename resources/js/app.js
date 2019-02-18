@@ -20,6 +20,8 @@ Vue.component('contact-comp', require('./components/ContactComp.vue').default);
 Vue.component('contact-list-comp', require('./components/ContactListComp.vue').default);
 Vue.component('active-conversation-comp', require('./components/ActiveConversationComp.vue').default);
 Vue.component('message-conversation-comp', require('./components/MessageConversationComp.vue').default);
+Vue.component('status-comp', require('./components/StatusComp.vue').default);
+
 
 /**
  * Instance
