@@ -55,6 +55,7 @@ class MessageC extends Controller
 
         $data=[];
         $data['success'] = $saved;
+        $data['message'] = $message;
         return $data;
     }
 

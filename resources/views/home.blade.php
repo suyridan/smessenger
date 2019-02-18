@@ -2,6 +2,7 @@
 
 @section('content')
 
-    <messenger-comp></messenger-comp>
+    <messenger-comp 
+    :user-id="{{ auth()->id() }}">
 
 @endsection

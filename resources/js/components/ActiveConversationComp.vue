@@ -2,6 +2,7 @@
     <b-row class="h-100">
         <b-col cols="8">
             <b-card
+            no-body
             class="h-100"
             footer="Card Footer"
             footer-tag="footer"
@@ -9,34 +10,37 @@
             footer-border-variant="dark"
             title="Conversación"
             > 
-                <message-conversation-comp 
-                    v-for="message in messages" 
-                    :key="message.id"
-                    :written-by-me="message.written_by_me">
-                    {{ message.content }}
-                </message-conversation-comp>
+                <b-card-body class="card-body-scroll">
+                    <message-conversation-comp 
+                        v-for="message in messages" 
+                        :key="message.id"
+                        :written-by-me="message.written_by_me">
+                        {{ message.content }}
+                    </message-conversation-comp>
+                </b-card-body>
+
+                    <div slot="footer">
+                        <b-form class="mb-0" @submit.prevent="postMessage">
+                            
+                            <b-input-group>
+                                <b-form-input class="text-center"
+                                    type="text"
+                                    autocomplete="off"
+                                    placeholder="Escribe un mensaje..."
+                                    v-model="newMessage">
+                                </b-form-input>
+
+                                <b-input-group-append>
+                                    <b-button type="submit" variant="primary">
+                                        Enviar
+                                    </b-button>
+                                </b-input-group-append>
+                            
+                            </b-input-group>
+
+                        </b-form>
+                    </div>
                 
-                <div slot="footer">
-                    <b-form class="mb-0" @submit.prevent="postMessage">
-                        
-                        <b-input-group>
-                            <b-form-input class="text-center"
-                                type="text"
-                                autocomplete="off"
-                                placeholder="Escribe un mensaje..."
-                                v-model="newMessage">
-                            </b-form-input>
-
-                            <b-input-group-append>
-                                <b-button type="submit" variant="primary">
-                                    Enviar
-                                </b-button>
-                            </b-input-group-append>
-                        
-                        </b-input-group>
-
-                    </b-form>
-                </div>
             </b-card>
         </b-col>
         <b-col cols="4">
@@ -55,42 +59,55 @@
     export default {
         props:{
             contactId: Number,
-            contactName: String
+            contactName: String,
+            messages: Array
         },
         data(){
             return {
-                messages: [],
-                newMessage: '',
+                newMessage: ''
             };
         },
         mounted() {
-            this.getMessages();
         },
         methods: {
-            getMessages(){
-                axios.get(`/api/messages?contact_id=${this.contactId}`)
-                .then((response) => {
-                        this.messages = response.data;
-                    });
-            },
+            /**
+             * se tenia metodo de getMessage, se ejecutaba en mounted
+             * se pasó a MessengerComp
+             */
             postMessage(){
                 const param = {
-                    to_id: 2,
+                    to_id: this.contactId,
                     content: this.newMessage
                 };
                 axios.post('api/messages/store',param)
                     .then((response) => {
                         if(response.data.success){
                             this.newMessage = '';
-                            this.getMessages();
+                            const message = response.data.message;
+                            message.written_by_me = true;
+                            this.$emit('messageCreated', message);
                         }
                     });
+            },
+            scrollToButton(){
+                const el = document.querySelector('.card-body-scroll');
+                el.scrollTop = el.scrollHeight;
             }    
         },
-        watch: {
-            contactId(value){
-                this.getMessages();
-            }
+        updated() {
+            this.scrollToButton();
         }
+        /**
+         * Se quita watch() que escuchaba cambios en la variale contact y 
+         * ejecutaba de nuevo getMessage
+         */
     }
 </script>
+
+<style scoped>
+    .card-body-scroll{
+        max-height: calc(100vh -63px);
+        overflow-x: auto;
+    } 
+</style>
+

@@ -16,8 +16,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios = require('axios');
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -49,3 +48,9 @@ window.Echo = new Echo({
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     encrypted: true
 });
+
+/**
+ * Dates & time format
+ */
+
+ window.moment = require('moment');
