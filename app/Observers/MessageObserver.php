@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Message;
 use App\Conversation;
-use App\events\MessageSent;
+use App\Events\MessageSent;
 
 class MessageObserver
 {
