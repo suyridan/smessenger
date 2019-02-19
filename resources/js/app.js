@@ -21,6 +21,7 @@ Vue.component('contact-list-comp', require('./components/ContactListComp.vue').d
 Vue.component('active-conversation-comp', require('./components/ActiveConversationComp.vue').default);
 Vue.component('message-conversation-comp', require('./components/MessageConversationComp.vue').default);
 Vue.component('status-comp', require('./components/StatusComp.vue').default);
+Vue.component('profile-edit-comp', require('./components/profile/Edit.vue').default);
 
 
 /**

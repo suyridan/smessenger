@@ -7,6 +7,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profile','ProfileC@edit')->name('profile');
+Route::post('/profile','ProfileC@update')->name('profile.update');
 
 
 Route::prefix('api')->group(function () {
