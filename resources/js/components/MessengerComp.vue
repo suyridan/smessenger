@@ -22,6 +22,8 @@
                 :contact-id="selectedConversation.contact_id"
                 :contact-name="selectedConversation.contact_name"
                 :messages="messages"
+                :my-image="myImageUrl"
+                :contact-image="selectedConversation.contact_image"
                 @messageCreated="addMessage($event)"
                 >
 
@@ -34,7 +36,7 @@
 <script>
 export default {
         props: {
-            userId: Number
+            user: Object
         },
         data(){
             return {
@@ -46,7 +48,7 @@ export default {
         },
         mounted() {
             this.getConversations();
-            Echo.private(`user.${this.userId}`)
+            Echo.private(`user.${this.user.id}`)
             .listen('MessageSent', (data) => {
                 const message = data.message;
                 message.written_by_me = false;
@@ -80,7 +82,7 @@ export default {
                     || conversation.contact_id == message.to_id;
                 });
 
-                const author = this.userId === message.from_id ? 'Tú' : conversation.contact_name;
+                const author = this.user.id === message.from_id ? 'Tú' : conversation.contact_name;
                 conversation.last_message = `${author}: ${message.content}`;
                 conversation.last_time = message.created_at;
 
@@ -112,6 +114,9 @@ export default {
                         .toLowerCase()
                         .includes(this.contactSearch.toLowerCase())
                 );
+            },
+            myImageUrl(){
+                return `/users/${this.user.image}`;
             }
         }
 }

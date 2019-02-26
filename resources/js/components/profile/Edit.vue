@@ -52,7 +52,7 @@
                         label-for="user_name"
                         description="Solo si se quiere modificar"
                     >
-                    <b-img :src="image" rounded="circle" width="50" alt="Imagen actual" />
+                    <b-img :src="image" rounded="circle" width="80" height="80" alt="Imagen actual" />
                         
                         <b-form-file
                             name="image"

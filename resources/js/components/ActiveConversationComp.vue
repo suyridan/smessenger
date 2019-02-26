@@ -14,7 +14,8 @@
                     <message-conversation-comp 
                         v-for="message in messages" 
                         :key="message.id"
-                        :written-by-me="message.written_by_me">
+                        :written-by-me="message.written_by_me"
+                        :image="message.written_by_me ? myImage : contactImage">
                         {{ message.content }}
                     </message-conversation-comp>
                 </b-card-body>
@@ -44,7 +45,7 @@
             </b-card>
         </b-col>
         <b-col cols="4">
-            <b-img rounded="circle" blank width="60" blank-color="#777" alt="img" class="m-1"></b-img>
+            <b-img rounded="circle" :src="contactImage" width="60" alt="img" class="m-1"></b-img>
             <p>{{ contactName }}
             </p>
             <hr>
@@ -60,7 +61,9 @@
         props:{
             contactId: Number,
             contactName: String,
-            messages: Array
+            contactImage: String,
+            messages: Array,
+            myImage: String
         },
         data(){
             return {
