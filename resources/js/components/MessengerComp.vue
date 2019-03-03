@@ -69,6 +69,7 @@ export default {
            changeActiveConversation(conversation){
                this.selectedConversation = conversation;
                this.getMessages();
+               
            },
            getMessages(){
                 axios.get(`/api/messages?contact_id=${this.selectedConversation.contact_id}`)

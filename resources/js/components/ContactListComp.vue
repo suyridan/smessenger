@@ -5,6 +5,7 @@
             :key="conversation.id"
             :conversation="conversation"
             @click.native="selectConversation(conversation)"
+            :selected="selectConversationId === conversation.id"
         >
         </contact-comp>
     </b-list-group>
@@ -17,12 +18,14 @@
         },
         data() {
             return {
+                selectConversationId : null
             };
         },
         mounted() {
         },
         methods: {
             selectConversation(conversation){
+                this.selectConversationId = conversation.id;
                 this.$emit('conversationSelected', conversation);
             }
         }

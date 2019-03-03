@@ -20,8 +20,8 @@
 <script>
     export default {
         props: {
-            variant: String,
-            conversation: Object
+            conversation: Object,
+            selected: Boolean
         },
         data() {
             return {
@@ -34,6 +34,9 @@
                 return moment(this.conversation.last_time,'YYYY-MM-DD hh:mm:ss')
                 .locale('es')
                 .fromNow();
+            },
+            variant(){
+                return this.selected ? 'secondary' : '';
             }
         }
     }

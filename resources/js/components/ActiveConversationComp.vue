@@ -28,7 +28,8 @@
                                     type="text"
                                     autocomplete="off"
                                     placeholder="Escribe un mensaje..."
-                                    v-model="newMessage">
+                                    v-model="newMessage"
+                                    ref='inputMessage'>
                                 </b-form-input>
 
                                 <b-input-group-append>
@@ -70,8 +71,6 @@
                 newMessage: ''
             };
         },
-        mounted() {
-        },
         methods: {
             /**
              * se tenia metodo de getMessage, se ejecutaba en mounted
@@ -82,10 +81,10 @@
                     to_id: this.contactId,
                     content: this.newMessage
                 };
+                this.newMessage = '';
                 axios.post('api/messages/store',param)
                     .then((response) => {
                         if(response.data.success){
-                            this.newMessage = '';
                             const message = response.data.message;
                             message.written_by_me = true;
                             this.$emit('messageCreated', message);
@@ -95,15 +94,21 @@
             scrollToButton(){
                 const el = document.querySelector('.card-body-scroll');
                 el.scrollTop = el.scrollHeight;
-            }    
+            },
+            focusNewMessage(){ 
+                this.$refs.inputMessage.focus();
+            }
         },
         updated() {
             this.scrollToButton();
+            this.focusNewMessage();
         }
         /**
          * Se quita watch() que escuchaba cambios en la variale contact y 
          * ejecutaba de nuevo getMessage
          */
+        ,mounted(){
+        }
     }
 </script>
 
