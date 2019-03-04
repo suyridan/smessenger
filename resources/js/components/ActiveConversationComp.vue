@@ -24,7 +24,7 @@
                         <b-form class="mb-0" @submit.prevent="postMessage">
                             
                             <b-input-group>
-                                <b-form-input class="text-center"
+                                <b-form-input
                                     type="text"
                                     autocomplete="off"
                                     placeholder="Escribe un mensaje..."

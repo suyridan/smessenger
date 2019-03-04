@@ -1,11 +1,11 @@
 <template>
     <b-list-group>
         <contact-comp 
-            v-for="conversation in conversations"
+            v-for="conversation in conversationsFiltered"
             :key="conversation.id"
             :conversation="conversation"
             @click.native="selectConversation(conversation)"
-            :selected="selectConversationId === conversation.id"
+            :selected="isSelected(conversation)"
         >
         </contact-comp>
     </b-list-group>
@@ -13,21 +13,23 @@
 
 <script>
     export default {
-        props: {
-            conversations: Array
-        },
-        data() {
-            return {
-                selectConversationId : null
-            };
-        },
-        mounted() {
-        },
         methods: {
-            selectConversation(conversation){
-                this.selectConversationId = conversation.id;
-                this.$emit('conversationSelected', conversation);
+            selectConversation(conversation){ 
+                this.$store.dispatch('getMessages', conversation);
+            },
+            isSelected(conversation) {
+                if (this.selectedConversation)
+                    return this.selectedConversation.id === conversation.id;
+                return false;
             }
-        }
+        },
+        computed: {
+            selectedConversation() {
+                return this.$store.state.selectedConversation;
+            },
+            conversationsFiltered(){
+                return this.$store.getters.conversationsFiltered;
+            }
+        },
     }
 </script>

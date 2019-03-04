@@ -4,9 +4,10 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
+import store from './store';
 
-import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 
 Vue.prototype.$http = window.axios;
@@ -22,7 +23,7 @@ Vue.component('active-conversation-comp', require('./components/ActiveConversati
 Vue.component('message-conversation-comp', require('./components/MessageConversationComp.vue').default);
 Vue.component('status-comp', require('./components/StatusComp.vue').default);
 Vue.component('profile-edit-comp', require('./components/profile/Edit.vue').default);
-
+Vue.component('contact-form-comp', require('./components/ContactFormComp.vue').default);
 
 /**
  * Instance
@@ -30,6 +31,7 @@ Vue.component('profile-edit-comp', require('./components/profile/Edit.vue').defa
 
 const app = new Vue({
     el: '#app',
+    store,
     methods: {
         logout(){
             document.getElementById("logout-form").submit();
