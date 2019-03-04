@@ -63,7 +63,6 @@
             contactId: Number,
             contactName: String,
             contactImage: String,
-            messages: Array,
             myImage: String
         },
         data(){
@@ -102,12 +101,11 @@
         updated() {
             this.scrollToButton();
             this.focusNewMessage();
-        }
-        /**
-         * Se quita watch() que escuchaba cambios en la variale contact y 
-         * ejecutaba de nuevo getMessage
-         */
-        ,mounted(){
+        },
+        computed: {
+            messages() {
+                return this.$store.state.messages;
+            }
         }
     }
 </script>

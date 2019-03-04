@@ -21,7 +21,6 @@
                 v-if="selectedConversation"
                 :contact-id="selectedConversation.contact_id"
                 :contact-name="selectedConversation.contact_name"
-                :messages="messages"
                 :my-image="myImageUrl"
                 :contact-image="selectedConversation.contact_image"
                 @messageCreated="addMessage($event)"
@@ -41,7 +40,6 @@ export default {
         data(){
             return {
                 selectedConversation: null,
-                messages: [],
                 conversations: [],
                 contactSearch: ''
             };
@@ -74,7 +72,7 @@ export default {
            getMessages(){
                 axios.get(`/api/messages?contact_id=${this.selectedConversation.contact_id}`)
                     .then((response) => {
-                    this.messages = response.data;
+                    this.$store.state.messages = response.data;
                 });
             },
             addMessage(message){
@@ -89,7 +87,7 @@ export default {
 
                 if(this.selectedConversation.contact_id == message.to_id 
                 || this.selectedConversation.contact_id == message.from_id ){
-                    this.messages.push(message);
+                    this.$store.state.messages.push(message);
                 }
             },
             getConversations(){
