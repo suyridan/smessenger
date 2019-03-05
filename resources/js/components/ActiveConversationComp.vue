@@ -15,7 +15,7 @@
                         v-for="message in messages" 
                         :key="message.id"
                         :written-by-me="message.written_by_me"
-                        :image="message.written_by_me ? myImage : contactImage">
+                        :image="message.written_by_me ? myImage : selectedConversation.contact_image">
                         {{ message.content }}
                     </message-conversation-comp>
                 </b-card-body>
@@ -46,8 +46,8 @@
             </b-card>
         </b-col>
         <b-col cols="4">
-            <b-img rounded="circle" :src="contactImage" width="60" alt="img" class="m-1"></b-img>
-            <p>{{ contactName }}
+            <b-img rounded="circle" :src="selectedConversation.contact_image" width="60" alt="img" class="m-1"></b-img>
+            <p>{{ selectedConversation.contact_name }}
             </p>
             <hr>
             <b-form-checkbox>
@@ -59,36 +59,15 @@
 
 <script>
     export default {
-        props:{
-            contactId: Number,
-            contactName: String,
-            contactImage: String,
-            myImage: String
-        },
         data(){
             return {
                 newMessage: ''
             };
         },
         methods: {
-            /**
-             * se tenia metodo de getMessage, se ejecutaba en mounted
-             * se pasó a MessengerComp
-             */
             postMessage(){
-                const param = {
-                    to_id: this.contactId,
-                    content: this.newMessage
-                };
+                this.$store.dispatch('postMessage', this.newMessage);
                 this.newMessage = '';
-                axios.post('api/messages/store',param)
-                    .then((response) => {
-                        if(response.data.success){
-                            const message = response.data.message;
-                            message.written_by_me = true;
-                            this.$emit('messageCreated', message);
-                        }
-                    });
             },
             scrollToButton(){
                 const el = document.querySelector('.card-body-scroll');
@@ -105,6 +84,12 @@
         computed: {
             messages() {
                 return this.$store.state.messages;
+            },
+            selectedConversation(){
+                return this.$store.state.selectedConversation;
+            },
+            myImage() {
+                return `/users/${this.$store.state.user.image}`;
             }
         }
     }
