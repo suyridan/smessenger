@@ -7,8 +7,10 @@ require('./bootstrap');
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import store from './store';
+import VueRouter from 'vue-router';
 
 Vue.use(BootstrapVue);
+Vue.use(VueRouter);
 
 Vue.prototype.$http = window.axios;
 
@@ -25,6 +27,15 @@ Vue.component('status-comp', require('./components/StatusComp.vue').default);
 Vue.component('profile-edit-comp', require('./components/profile/Edit.vue').default);
 Vue.component('contact-form-comp', require('./components/ContactFormComp.vue').default);
 
+const routes = [
+    { path: '/foo', component: Foo },
+    { path: '/bar', component: Bar }
+  ]
+  
+  const router = new VueRouter({
+    routes
+  })
+
 /**
  * Instance
  */
@@ -32,6 +43,7 @@ Vue.component('contact-form-comp', require('./components/ContactFormComp.vue').d
 const app = new Vue({
     el: '#app',
     store,
+    router,
     methods: {
         logout(){
             document.getElementById("logout-form").submit();
